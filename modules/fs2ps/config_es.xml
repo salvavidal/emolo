@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>fs2ps</name>
+    <displayName><![CDATA[fs2ps]]></displayName>
+    <version><![CDATA[2.19.1.2504141106]]></version>
+    <description><![CDATA[M&oacute;dulo para sincronizar en un clic el cat&aacute;logo y el stock desde FactuSOL hacia Prestashop.]]></description>
+    <author><![CDATA[Fes-te web!]]></author>
+    <tab><![CDATA[migration_tools]]></tab>
+	<confirmUninstall><![CDATA[Are you sure you want to uninstall?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

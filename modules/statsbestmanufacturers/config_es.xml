@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>statsbestmanufacturers</name>
+    <displayName><![CDATA[Mejores marcas]]></displayName>
+    <version><![CDATA[2.0.3]]></version>
+    <description><![CDATA[Mejora tus estad&iacute;sticas: a&ntilde;ade una lista de las marcas m&aacute;s vendidas en tu cuadro de mando.]]></description>
+    <author><![CDATA[PrestaShop]]></author>
+    <tab><![CDATA[administration]]></tab>
+    <is_configurable>0</is_configurable>
+    <need_instance>0</need_instance>
+</module>

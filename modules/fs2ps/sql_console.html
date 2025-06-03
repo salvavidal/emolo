@@ -1,0 +1,81 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<style>
+			table, th, td { border-collapse: collapse; }
+			th, td { 
+			  padding: 5px; 
+			  border: 1px solid black;
+        line-height: 1em;
+      }
+			table { display: block; max-width: 100%; overflow-x: auto;}
+		</style>
+	</head>
+	<body>
+	  <div>
+	     <label>Key: </label><input id="key" type="text" value="suclavesecreta" />
+	     <label>Controller: </label><input id="controller" type="text" />
+	     <label>Use base64: </label><input id="base64" type="checkbox" />
+	  </div>
+	  <textarea id="sql" style="width: 100%; margin: 2em 0; min-height: 300px;"></textarea>
+		<button onclick="javascript:execute()">Execute</button>
+		<div id="response" style="width: 100%; margin: 2em 0; font-family:monospace;"></div>
+		<script>
+		  function byId(id) { return document.getElementById(id); }
+		  function encode(data) {
+		  	if (byId('base64').checked) return btoa(JSON.stringify(data));
+		  	else return JSON.stringify(data);
+		  }
+		  var controller = document.getElementById("controller");
+		  
+		  function execute() {
+			  var xhttp = new XMLHttpRequest();
+			  
+			  xhttp.onreadystatechange = function() {
+				  var txt = [];
+				  var table = [];
+				  if (this.readyState == 4 && this.status == 200) {
+				    json = JSON.parse(this.responseText);
+				    if (json.msgs) txt.push.apply(txt, json.msgs);
+				    if (json.exception) txt.push(json.exception);
+				    if (json.traceback) txt.push(json.traceback);
+				    if (json.returns) {
+				    	table.push('<table>');
+				    	if (json.returns.length) {
+					    	table.push('<theader>');
+	              table.push('<tr>');
+	              for (var k in json.returns[0]) {
+	                table.push('<th>'); table.push(k); table.push('</th>');
+	              }
+	              table.push('</tr>');
+	              table.push('</theader>');
+				    	}
+				    	table.push('<tbody>');
+				    	for (var i=0; i<json.returns.length; i++) {
+				    		var r = json.returns[i];
+				    		table.push('<tr>');
+				    		for (var k in r) {
+				    			table.push('<td>'); table.push(r[k]); table.push('</td>');
+				    		}
+				    		table.push('</tr>');
+				    	}
+				    	table.push('</tbody>');
+				    	txt.push('</table>');
+				    }
+				  }
+				  byId('response').innerHTML = txt.join('<br>') + table.join('') ;
+				};
+				
+				var controller = byId('controller').value.trim();
+				xhttp.open("POST", '../../'+controller, true);
+				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xhttp.send((controller?"":"fc=module&module=fs2ps&")+"cmd="+encode({
+	          stoponerr: false, limit: 100, // timeout: 300,
+	          subop: 'execute', op: 'execute_sql',
+	          key: byId('key').value,
+	          sql: byId('sql').value
+	      }));
+		  }
+		</script>
+	</body>
+</html>

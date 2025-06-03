@@ -1,0 +1,36 @@
+services:
+  _defaults:
+    public: true
+
+  PrestaShop\Module\Psshipping\Controller\Admin\HomeController:
+    class: 'PrestaShop\Module\Psshipping\Controller\Admin\HomeController'
+    arguments:
+      - '@psshipping'
+
+  PrestaShop\Module\Psshipping\Controller\Admin\CarrierController:
+    class: 'PrestaShop\Module\Psshipping\Controller\Admin\CarrierController'
+    arguments:
+      - '@psshipping'
+  
+  PrestaShop\Module\Psshipping\Controller\Admin\ConfigurationController:
+    class: 'PrestaShop\Module\Psshipping\Controller\Admin\ConfigurationController'
+    arguments:
+      - '@psshipping'
+  
+  PrestaShop\Module\Psshipping\Controller\Admin\KeycloakAuthController:
+    class: 'PrestaShop\Module\Psshipping\Controller\Admin\KeycloakAuthController'
+
+  PrestaShop\Module\Psshipping\Controller\Admin\FaqController:
+    class: 'PrestaShop\Module\Psshipping\Controller\Admin\FaqController'
+    arguments:
+      - '@psshipping'
+
+  PrestaShop\Module\Psshipping\Controller\Admin\OrdersController:
+    class: 'PrestaShop\Module\Psshipping\Controller\Admin\OrdersController'
+    arguments:
+      - '@psshipping'
+
+  PrestaShop\Module\Psshipping\Controller\Admin\PsshippingOnboardingStepperController:
+    class: 'PrestaShop\Module\Psshipping\Controller\Admin\PsshippingOnboardingStepperController'
+    arguments:
+      - '@psshipping'

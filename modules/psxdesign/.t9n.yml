@@ -1,0 +1,12 @@
+cache_dir: /tmp/psxdesign-translations/
+paths:
+  - .
+exclude_files:
+  - _dev
+  - dockerfiles
+  - make
+  - node_modules
+  - tests
+  - translations
+  - themes
+  - vendor

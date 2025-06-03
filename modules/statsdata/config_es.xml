@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>statsdata</name>
+    <displayName><![CDATA[Explotaci&oacute;n de datos para las estad&iacute;sticas]]></displayName>
+    <version><![CDATA[2.1.1]]></version>
+    <description><![CDATA[Recopile la mayor cantidad de informaci&oacute;n posible para mejorar las estad&iacute;sticas y llevar tu negocio m&aacute;s lejos.]]></description>
+    <author><![CDATA[PrestaShop]]></author>
+    <tab><![CDATA[administration]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>

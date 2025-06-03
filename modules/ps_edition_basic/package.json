@@ -1,0 +1,19 @@
+{
+  "name": "@prestashopcorp/edition-module",
+  "version": "1.0.5",
+  "scripts": {
+    "precheck": "docker start temp-ps || docker run -tid --rm -v ps-volume:/var/www/html --name temp-ps prestashop/prestashop:8.1.3-apache",
+    "check": "docker run --rm --volumes-from temp-ps -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module ghcr.io/phpstan/phpstan:latest analyse --configuration=/web/module/phpstan.neon",
+    "fmt": "vendor/bin/php-cs-fixer fix --quiet --diff 2> /dev/null || npm run docker-fmt",
+    "lint": "vendor/bin/phplint --exclude=vendor . 2> /dev/null || npm run docker-lint",
+    "test": "vendor/bin/phpunit tests",
+    "validate": "composer validate --strict",
+    "postinstall": "composer install 2> /dev/null || npm run docker-composer-install",
+    "docker-fmt": "docker compose -f ../../.docker/local-php-env.docker-compose.yml run --build --entrypoint \"vendor/bin/php-cs-fixer fix --quiet --diff\" local-php-env",
+    "docker-lint": "docker compose -f ../../.docker/local-php-env.docker-compose.yml run --build --entrypoint \"vendor/bin/phplint --exclude=vendor .\" local-php-env",
+    "docker-test": "docker compose -f ../../.docker/local-php-env.docker-compose.yml run --build --entrypoint \"vendor/bin/phpunit tests\" local-php-env",
+    "docker-composer-install": "docker compose -f ../../.docker/local-php-env.docker-compose.yml run --build --entrypoint \"composer install\" local-php-env",
+    "docker-composer-update": "docker compose -f ../../.docker/local-php-env.docker-compose.yml run --build --entrypoint \"composer update\" local-php-env",
+    "docker-composer-dump-autoload": "docker compose -f ../../.docker/local-php-env.docker-compose.yml run --build --entrypoint \"composer dump-autoload\" local-php-env"
+  }
+}

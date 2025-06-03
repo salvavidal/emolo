@@ -1,0 +1,21 @@
+ 
+
+{shop_url}
+
+Hola {firstname} {lastname},
+
+{meta_products}
+
+ID Pedido {order_name} - En tránsito
+
+Su pedido con referencia {order_name} está en camino.
+
+Puede realizar el seguimiento de su paquete mediante el siguiente enlace: {followup}
+
+Follow your order and download your invoice on our store, go to the [Historial y detalles de mis pedidos]({history_url}) section of your customer account.
+
+Si tiene una cuenta de invitado, puede seguir su pedido desde la sección: [Seguimiento de pedido]({guest_tracking_url}) de nuestra tienda.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop-project.org/)

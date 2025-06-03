@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	</head>
+	<body>
+		<div style="padding: 10px;">
+			<label>Controller: </label><input id="controller" type="text" />
+		</div>
+		<form name="form" method="POST" accept-charset="UTF-8">
+			<input type="hidden" name="fc" value="module" />
+			<input type="hidden" name="module" value="fs2ps" />
+			<div style="padding: 10px;"><textarea name="cmd" style="width: 600px; height: 300px;"></textarea></div>
+			<div style="padding: 10px;">
+				<input style="height: 30px;" type="submit" name="Enviar" onclick="document.form.action='../../'+document.getElementById('controller').value;"/>
+			</div>
+		</form>
+	</body>
+</html>

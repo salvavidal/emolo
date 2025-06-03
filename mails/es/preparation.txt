@@ -1,0 +1,17 @@
+ 
+
+{shop_url}
+
+Hola {firstname} {lastname},
+
+ID Pedido {order_name} - Procesando pedido
+
+Nos encontramos procesando su pedido con la referencia {order_name} de {shop_name}.
+
+Follow your order and download your invoice on our store, go to the [Historial y detalles de mis pedidos]({history_url}) section of your customer account.
+
+Si tiene una cuenta de invitado, puede seguir su pedido desde la sección: [Seguimiento de pedido]({guest_tracking_url}) de nuestra tienda.
+
+[{shop_name}]({shop_url})
+
+Powered by [PrestaShop](https://www.prestashop-project.org/)
