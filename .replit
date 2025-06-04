@@ -1,0 +1,8 @@
+modules = ["php-8.2", "nodejs-20", "web"]
+compile = "make"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+build = ["sh", "-c", "make"]
