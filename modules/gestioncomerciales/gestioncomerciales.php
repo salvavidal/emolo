@@ -55,6 +55,7 @@ class Gestioncomerciales extends Module
         return parent::install() &&
             $this->registerHook('header') &&
             $this->registerHook('displayBackOfficeHeader') &&
+            $this->registerHook('displayAdminListAfter') &&
             $this->installTab();
     }
 
@@ -76,6 +77,19 @@ class Gestioncomerciales extends Module
 	public function hookHeader()
 	{
 		//métedo registrado pero no se usa de momento para nada
+	}
+
+	public function hookDisplayAdminListAfter($params)
+	{
+		// Solo mostrar el botón en el listado de clientes
+		if (Tools::getValue('controller') == 'AdminCustomers') {
+			return '<div class="panel-footer">
+				<button type="button" class="btn btn-default" id="btn-gestion-comerciales">
+					<i class="icon-user"></i> Gestión Comerciales
+				</button>
+			</div>';
+		}
+		return '';
 	}
 
 public function getContent()
