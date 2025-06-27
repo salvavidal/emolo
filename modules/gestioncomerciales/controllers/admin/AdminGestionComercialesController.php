@@ -16,31 +16,8 @@ class AdminGestionComercialesController extends ModuleAdminController
 
     public function initContent()
     {
-        parent::initContent();
-
-        // Obtener el módulo
-        $module = Module::getInstanceByName('gestioncomerciales');
-
-        // Mostrar el contenido de configuración del módulo
-        $content = $module->getContent();
-
-        $this->context->smarty->assign(array(
-            'content' => $content,
-            'module_name' => $module->displayName,
-            'module_version' => $module->version
-        ));
-
-        $this->setTemplate('module_content.tpl');
-    }
-
-    public function postProcess()
-    {
-        // Procesar formularios si es necesario
-        if (Tools::isSubmit('submit'.$this->module->name)) {
-            $module = Module::getInstanceByName('gestioncomerciales');
-            return $module->getContent();
-        }
-
-        return parent::postProcess();
+        // Redirigir directamente a la configuración del módulo
+        $configure_url = $this->context->link->getAdminLink('AdminModules') . '&configure=gestioncomerciales';
+        Tools::redirectAdmin($configure_url);
     }
 }
