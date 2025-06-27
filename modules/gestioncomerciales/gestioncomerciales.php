@@ -51,17 +51,20 @@ class Gestioncomerciales extends Module
     public function install()
     {
         include(dirname(__FILE__).'/sql/install.php');
-        return parent::install() && 
-               $this->registerHook('header') &&
-               $this->registerHook('displayBackOfficeHeader');
+
+        return parent::install() &&
+            $this->registerHook('header') &&
+            $this->registerHook('displayBackOfficeHeader') &&
+            $this->installTab();
     }
 
     public function uninstall()
     {
         include(dirname(__FILE__).'/sql/uninstall.php');
-        return parent::uninstall();
+
+        return parent::uninstall() && $this->uninstallTab();
     }
-	
+
 	public function hookDisplayBackOfficeHeader()
     {
         if (Tools::getValue('configure') == $this->name) {
@@ -69,7 +72,7 @@ class Gestioncomerciales extends Module
 			$this->context->controller->addCSS($this->_path.'views/css/back.css');
         }
     }
-	
+
 	public function hookHeader()
 	{
 		//métedo registrado pero no se usa de momento para nada
@@ -83,7 +86,7 @@ public function getContent()
     if (Tools::getValue('ajax') == '1' && Tools::getValue('action') == 'getEmployees') {
         $onlyCommercials = Tools::getValue('only_commercials') == '1';
         $employees = $this->getAllCommercials($onlyCommercials);
-        
+
         header('Content-Type: application/json');
         echo json_encode($employees);
         exit;
@@ -290,7 +293,7 @@ public function getContent()
 
         // Generar el formulario y añadir la tabla de clientes
         $output = $helper->generateForm([$fields_form]);
-        
+
         // Añadir la tabla de clientes con checkboxes
         $output .= '<div class="panel">
             <div class="panel-heading">' . $this->l('Seleccionar Clientes') . '</div>
@@ -393,7 +396,7 @@ public function getContent()
   private function getAllCommercials($onlyCommercials = false)
 {
     $id_lang = (int)$this->context->language->id;
-    
+
     $sql = '
         SELECT 
             e.id_employee AS id, 
@@ -402,14 +405,14 @@ public function getContent()
             pl.name AS profile
         FROM ' . _DB_PREFIX_ . 'employee e
         LEFT JOIN ' . _DB_PREFIX_ . 'profile_lang pl ON e.id_profile = pl.id_profile AND pl.id_lang = ' . $id_lang;
-    
+
     // Filtrar solo comerciales si se especifica
     if ($onlyCommercials) {
         $sql .= ' WHERE LOWER(pl.name) LIKE "%comercial%" OR LOWER(pl.name) LIKE "%sales%" OR LOWER(pl.name) LIKE "%ventas%"';
     }
-    
+
     $sql .= ' ORDER BY e.lastname ASC, e.firstname ASC';
-    
+
     return Db::getInstance()->executeS($sql);
 }
 
@@ -466,4 +469,36 @@ public function getContent()
     ';
     return Db::getInstance()->executeS($sql);
 }
+
+    /**
+     * Instala la pestaña en el menú del backoffice
+     */
+    private function installTab()
+    {
+        $tab = new Tab();
+        $tab->active = 1;
+        $tab->class_name = 'AdminGestionComerciales';
+        $tab->name = array();
+        foreach (Language::getLanguages(true) as $lang) {
+            $tab->name[$lang['id_lang']] = 'Gestión Comerciales';
+        }
+        $tab->id_parent = (int)Tab::getIdFromClassName('AdminParentCustomer');
+        $tab->module = $this->name;
+
+        return $tab->add();
+    }
+
+    /**
+     * Desinstala la pestaña del menú del backoffice
+     */
+    private function uninstallTab()
+    {
+        $id_tab = (int)Tab::getIdFromClassName('AdminGestionComerciales');
+        if ($id_tab) {
+            $tab = new Tab($id_tab);
+            return $tab->delete();
+        }
+
+        return true;
+    }
 }
